@@ -14,6 +14,8 @@ services:
       - "5432:5432"
     expose:
       - 5432
+    networks:
+      - indeco_network
 
   backend:
     build: 
@@ -27,6 +29,8 @@ services:
       - "5000:5000"
     depends_on:
       - postgres
+    networks:
+      - indeco_network
 
   client:
     build: 
@@ -38,6 +42,8 @@ services:
       - "3000:3000"
     env_file:
       - ../indeco-client/.env
+    networks:
+      - indeco_network
 
   admin:
     build: 
@@ -49,6 +55,8 @@ services:
       - "3001:80"
     env_file:
       - ../indeco-admin/.env.production
+    networks:
+      - indeco_network
 
   redis-server:
     image: redis:8-alpine
@@ -58,6 +66,8 @@ services:
       - "6380:6379"   # host 6380 map tới container 6379, tránh trùng cổng nếu Redis online cũng dùng 6379
     volumes:
       - redisdata:/data
+    networks:
+      - indeco_network
 
   nginx:
     image: nginx:latest
@@ -76,7 +86,7 @@ services:
       - backend
     networks:
       - indeco_network
-      
+
 networks:
   indeco_network:
     driver: bridge
