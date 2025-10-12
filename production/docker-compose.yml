@@ -74,6 +74,12 @@ services:
       - client
       - admin
       - backend
+    networks:
+      - indeco_network
+      
+networks:
+  indeco_network:
+    driver: bridge
 
 volumes:
   pgdata:
