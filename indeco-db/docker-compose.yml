@@ -22,6 +22,4 @@ networks:
 
 volumes:
   indecovietnam_pgdata:
-    external: true
-  indeco_network:
-    external: true
+    external: false
