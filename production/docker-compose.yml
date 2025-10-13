@@ -10,8 +10,6 @@ services:
       - ../indeco-be/.env
     ports:
       - "5000:5000"
-    depends_on:
-      - postgres
     networks:
       - indeco_network
 
@@ -72,8 +70,7 @@ services:
 
 networks:
   indeco_network:
-    driver: bridge
+    external: true
 
 volumes:
-  pgdata:
   redisdata:
