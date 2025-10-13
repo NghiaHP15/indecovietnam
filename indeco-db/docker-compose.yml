@@ -16,6 +16,10 @@ services:
     networks:
       - indeco_network
 
+networks:
+  indeco_network:
+    driver: bridge
+
 volumes:
   indecovietnam_pgdata:
     external: true
