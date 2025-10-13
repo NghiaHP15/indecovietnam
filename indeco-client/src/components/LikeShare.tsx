@@ -33,7 +33,7 @@ const LikeShare = ({ url }: Props) => {
     return (
         <div ref={likeRef} className="flex items-center">
             <div className="fb-like"
-                data-href={`http://localhost:3000/${url}`}
+                data-href={`https://indecovietnam.com/${url}`}
                 data-width=""
                 data-layout="button_count"
                 data-action="like"
