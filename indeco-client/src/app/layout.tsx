@@ -16,6 +16,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <head>
+        <meta name="facebook-domain-verification" content="izl7pr2jtzqrep1r2um98e63xj6sue" />
         <meta name="google-site-verification" content="HMrFM7z812-Am_tVMZ2ZuTEeRcPzu2PSaak7XPj6vGs" />
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
       </head>
