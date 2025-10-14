@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
     volumes:
-      - indecovietnam_pgdata:/var/lib/postgresql/data
+      - indeco-db_indecovietnam_pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     expose:
@@ -21,5 +21,6 @@ networks:
     external: true
 
 volumes:
-  indecovietnam_pgdata:
-    external: false
+  indeco-db_indecovietnam_pgdata:
+    name: indeco-db_indecovietnam_pgdata 
+    external: true
