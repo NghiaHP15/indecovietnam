@@ -4,11 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useSignIn } from '@/store/userStore';
 import { LoginStateEnum, useLoginStateContext } from './providers/LoginStateProvider';
 import urlBackground from "../../../assets/images/bg.jpg"
-import logo from "../../../assets/images/logo.png"
-import _ from 'lodash';
 import { useThemeToken } from '@/theme/hooks';
 import LocalePicker from '@/components/locale-picker';
 import { LoginUser } from '@/api/services/authAccount.service';
+import { logo_indecovietnam } from '@/assets/images';
 
 function LoginForm() {
 
@@ -97,7 +96,7 @@ function LoginForm() {
             }}
           >
             <div className='h-full w-full flex flex-col items-center justify-center rounded-r-lg' style={{background: "#00000066"}}>
-              <img src={logo} className='w-80 mb-2 mx-12' />
+              <img src={logo_indecovietnam} className='w-80 mb-2 mx-12' />
               <span style={{color: colorTextLightSolid}}>© 2025 Indeco VietNam</span>
             </div>
           </div>
