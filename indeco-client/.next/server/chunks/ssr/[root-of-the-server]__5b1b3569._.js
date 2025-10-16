@@ -14,8 +14,11 @@ module.exports = mod;
 var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
+    "checkTokenValid": (()=>checkTokenValid),
     "cn": (()=>cn),
-    "generateSlug": (()=>generateSlug)
+    "generateSlug": (()=>generateSlug),
+    "logout": (()=>logout),
+    "parseJwt": (()=>parseJwt)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/clsx/dist/clsx.mjs [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/tailwind-merge/dist/bundle-mjs.mjs [app-ssr] (ecmascript)");
@@ -32,6 +35,31 @@ const generateSlug = (title)=>{
         strict: true,
         locale: 'vi'
     });
+};
+const logout = async ()=>{
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("loginType");
+};
+const parseJwt = (token)=>{
+    try {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        return JSON.parse(atob(base64));
+    } catch  {
+        return null;
+    }
+};
+const checkTokenValid = ()=>{
+    const token = localStorage.getItem("accessToken");
+    if (!token) return false;
+    const decoded = parseJwt(token);
+    const currentTime = Date.now() / 1000;
+    if (!decoded?.exp || decoded.exp < currentTime) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("loginType");
+        return false;
+    }
+    return true;
 };
 }}),
 "[project]/src/components/Container.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
@@ -700,7 +728,7 @@ const parseJwt = (token)=>{
 // ======== Hàm refresh token ========
 const refreshAccessToken = async ()=>{
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://indecovietnam-backend.onrender.com/api/")}customer/refresh-token`, {}, {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/")}customer/refresh-token`, {}, {
             withCredentials: true
         });
         const newToken = response.data.data?.accessToken;
@@ -715,7 +743,7 @@ const refreshAccessToken = async ()=>{
 };
 // ======== Axios instance ========
 const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: ("TURBOPACK compile-time value", "https://indecovietnam-backend.onrender.com/api/") || "http://localhost:5000/api",
+    baseURL: ("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/") || "http://localhost:5000/api",
     timeout: 50000,
     headers: {
         "Content-Type": "application/json"
@@ -726,9 +754,9 @@ const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules
 axiosClient.interceptors.request.use(async (config)=>{
     const requiresAuth = config.requiresAuth;
     if (!requiresAuth) return config;
-    const token = ("TURBOPACK compile-time falsy", 0) ? ("TURBOPACK unreachable", undefined) : null;
     if ("TURBOPACK compile-time truthy", 1) return config;
     "TURBOPACK unreachable";
+    const token = undefined;
     // Check token expiration
     const payload = undefined;
     const now = undefined;
@@ -6306,7 +6334,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/store.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$constants$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/constants/utils.ts [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -6319,12 +6349,12 @@ const Providers = ({ children })=>{
             children: children
         }, void 0, false, {
             fileName: "[project]/src/components/Providers.tsx",
-            lineNumber: 11,
+            lineNumber: 12,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Providers.tsx",
-        lineNumber: 10,
+        lineNumber: 11,
         columnNumber: 5
     }, this);
 };
@@ -6356,6 +6386,16 @@ const SyncZustandWithSession = ({ children })=>{
         }
     }, [
         status,
+        logout
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const valid = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$constants$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["checkTokenValid"])();
+        if (!valid) {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("loginType");
+            logout();
+        }
+    }, [
         logout
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {

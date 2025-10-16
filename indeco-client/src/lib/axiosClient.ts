@@ -61,7 +61,9 @@ axiosClient.interceptors.request.use(
         const requiresAuth = (config as AxiosRequestConfig & { requiresAuth?: boolean }).requiresAuth;
         if (!requiresAuth) return config;
 
-        const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+        if (typeof window === "undefined") return config;
+
+        const token = localStorage.getItem("accessToken");
         if (!token) return config;
 
         // Check token expiration
@@ -90,7 +92,6 @@ axiosClient.interceptors.request.use(
         } else {
             config.headers.Authorization = `Bearer ${token}`;
         }
-
         return config;
     },
     (error) => Promise.reject(error)

@@ -4,6 +4,7 @@
 import { SessionProvider, useSession } from "next-auth/react";
 import React, { useEffect } from "react";
 import useStore from "../../store";
+import { checkTokenValid } from "@/constants/utils";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -43,6 +44,15 @@ const SyncZustandWithSession = ({ children }: { children: React.ReactNode }) => 
       if (loginType === "oauth") logout();
     }
   }, [status, logout]);
+
+  useEffect(() => {
+    const valid = checkTokenValid();
+    if (!valid) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("loginType");
+      logout();
+    }
+  }, [logout]);
 
   return <>{children}</>;
 };

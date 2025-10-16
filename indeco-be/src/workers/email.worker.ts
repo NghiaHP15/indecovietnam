@@ -41,7 +41,6 @@ emailQueue.process(async (job) => {
                 await EmailNodeService.sendWelCome(to, payload);
                 break;
             case EmailJobType.RESET_PASSWORD:
-                console.log(type);
                 await EmailNodeService.sendOTP(to, payload);
                 break;
             case EmailJobType.CONFIRM_ORDER:

@@ -6,8 +6,11 @@ module.exports = {
 var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
+    "checkTokenValid": (()=>checkTokenValid),
     "cn": (()=>cn),
-    "generateSlug": (()=>generateSlug)
+    "generateSlug": (()=>generateSlug),
+    "logout": (()=>logout),
+    "parseJwt": (()=>parseJwt)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/clsx/dist/clsx.mjs [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/tailwind-merge/dist/bundle-mjs.mjs [app-rsc] (ecmascript)");
@@ -24,6 +27,31 @@ const generateSlug = (title)=>{
         strict: true,
         locale: 'vi'
     });
+};
+const logout = async ()=>{
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("loginType");
+};
+const parseJwt = (token)=>{
+    try {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        return JSON.parse(atob(base64));
+    } catch  {
+        return null;
+    }
+};
+const checkTokenValid = ()=>{
+    const token = localStorage.getItem("accessToken");
+    if (!token) return false;
+    const decoded = parseJwt(token);
+    const currentTime = Date.now() / 1000;
+    if (!decoded?.exp || decoded.exp < currentTime) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("loginType");
+        return false;
+    }
+    return true;
 };
 }}),
 "[project]/src/components/Logo.tsx [app-rsc] (ecmascript)": ((__turbopack_context__) => {

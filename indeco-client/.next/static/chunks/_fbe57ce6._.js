@@ -6,8 +6,11 @@
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
+    "checkTokenValid": (()=>checkTokenValid),
     "cn": (()=>cn),
-    "generateSlug": (()=>generateSlug)
+    "generateSlug": (()=>generateSlug),
+    "logout": (()=>logout),
+    "parseJwt": (()=>parseJwt)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/clsx/dist/clsx.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/tailwind-merge/dist/bundle-mjs.mjs [app-client] (ecmascript)");
@@ -24,6 +27,31 @@ const generateSlug = (title)=>{
         strict: true,
         locale: 'vi'
     });
+};
+const logout = async ()=>{
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("loginType");
+};
+const parseJwt = (token)=>{
+    try {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        return JSON.parse(atob(base64));
+    } catch  {
+        return null;
+    }
+};
+const checkTokenValid = ()=>{
+    const token = localStorage.getItem("accessToken");
+    if (!token) return false;
+    const decoded = parseJwt(token);
+    const currentTime = Date.now() / 1000;
+    if (!decoded?.exp || decoded.exp < currentTime) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("loginType");
+        return false;
+    }
+    return true;
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
@@ -668,7 +696,7 @@ const parseJwt = (token)=>{
 // ======== Hàm refresh token ========
 const refreshAccessToken = async ()=>{
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://indecovietnam-backend.onrender.com/api/")}customer/refresh-token`, {}, {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/")}customer/refresh-token`, {}, {
             withCredentials: true
         });
         const newToken = response.data.data?.accessToken;
@@ -683,7 +711,7 @@ const refreshAccessToken = async ()=>{
 };
 // ======== Axios instance ========
 const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: ("TURBOPACK compile-time value", "https://indecovietnam-backend.onrender.com/api/") || "http://localhost:5000/api",
+    baseURL: ("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/") || "http://localhost:5000/api",
     timeout: 50000,
     headers: {
         "Content-Type": "application/json"
@@ -694,7 +722,10 @@ const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules
 axiosClient.interceptors.request.use(async (config)=>{
     const requiresAuth = config.requiresAuth;
     if (!requiresAuth) return config;
-    const token = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem("accessToken") : ("TURBOPACK unreachable", undefined);
+    if ("TURBOPACK compile-time falsy", 0) {
+        "TURBOPACK unreachable";
+    }
+    const token = localStorage.getItem("accessToken");
     if (!token) return config;
     // Check token expiration
     const payload = parseJwt(token);
@@ -6739,9 +6770,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/store.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$constants$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/constants/utils.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -6753,12 +6786,12 @@ const Providers = ({ children })=>{
             children: children
         }, void 0, false, {
             fileName: "[project]/src/components/Providers.tsx",
-            lineNumber: 11,
+            lineNumber: 12,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Providers.tsx",
-        lineNumber: 10,
+        lineNumber: 11,
         columnNumber: 5
     }, this);
 };
@@ -6798,11 +6831,23 @@ const SyncZustandWithSession = ({ children })=>{
         status,
         logout
     ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "SyncZustandWithSession.useEffect": ()=>{
+            const valid = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$constants$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkTokenValid"])();
+            if (!valid) {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("loginType");
+                logout();
+            }
+        }
+    }["SyncZustandWithSession.useEffect"], [
+        logout
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: children
     }, void 0, false);
 };
-_s(SyncZustandWithSession, "QTQOCv3BaQNlLxtUZcXQoDOwk6s=", false, function() {
+_s(SyncZustandWithSession, "weJxNT3IbWEvFCb2oAjjtbvCYPU=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSession"]
