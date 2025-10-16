@@ -97,14 +97,14 @@ export const EmailNodeService = {
                         <div style="text-align: center; margin-bottom: 5px;">
                         <h1 style="text-align: center; font-size: 28px;"><strong><span style="color: rgb(81, 53, 30);">INDECO</span></strong> <strong><span style="color: rgb(197, 150, 114);">VIETNAM</span></strong></h1>
                         </div>
-                        <h3 style="margin:5px 0 10px; color: #555">Đơn hàng ${order.txnRef}</h3>
-                        <p style="font-weight:bold; color: #555">Cảm ơn quý khách hàng đã đặt hàng tại INDECO</p>
+                        <h3 style="margin:5px 0 10px; color: #333">Đơn hàng ${order.txnRef}</h3>
+                        <p style="font-weight:bold; color: #333; font-size: 16px">Cảm ơn quý khách hàng đã đặt hàng tại INDECO</p>
                         <p style="color: #555">
                         Xin chào ${order.customer.firstname + ' ' + order.customer.lastname}, INDECO đã nhận được đơn hàng của quý khách hàng và đã sẵn sàng để vận chuyển. 
                         Quý khách hàng không thể hủy đơn hàng sau 24 tiếng kể từ khi đơn hàng được INDECO xác nhận thành công.
                         </p>
                         <a href="${process.env.CLIENT_URL}/order?=txnRef=${order.txnRef}" style="display:inline-block;background:#b48456;color:#fff;text-decoration:none;padding:10px 20px;border-radius:4px;font-weight:bold;margin-top:15px;">Xem đơn hàng</a>
-                        <h3 style="color: #555; border-bottom:1px solid #ddd;margin-top:20px;padding-bottom:10px;">Thông tin đơn hàng</h3>
+                        <h3 style="color: #333; border-bottom:1px solid #ddd;margin-top:20px;padding-bottom:10px;">Thông tin đơn hàng</h3>
                         ${order.products.map((item: any) => {
                             return `
                             <div style="display:flex;margin:10px 0;">
@@ -112,7 +112,7 @@ export const EmailNodeService = {
                                     <img src="${item.product_variant.image}" alt="Product Image" style="width:80px;height:80px;object-fit:cover;border:1px solid #eee;border-radius:4px;margin-right:10px;" />
                                     <div>
                                         <div style="font-weight:bold; color: #555">${item.name}</div>
-                                        <div style="color:#555;">Mã sản phẩm ${item.product_variant.sku} x ${item.quantity}</div>
+                                        <div style="color:#555;">Mã sản phẩm ${item.product_variant.sku} x Số lượng: ${item.quantity}</div>
                                     </div>
                                 </div>
                                 <div style="text-align: end;width: 15%;"><strong style="color: #555">${formatCurrency(item.total_price)}</strong></div>
@@ -122,43 +122,43 @@ export const EmailNodeService = {
                         <table style="width:100%;border-collapse:collapse;">
                         <tr>
                             <td style="padding:4px 0;font-size:14px; color: #555">Tổng giá trị sản phẩm</td>
-                            <td style="padding:4px 0;font-size:14px;text-align:right; color: #555">${formatCurrency(order.total_amount)}</td>
+                            <td style="padding:4px 0;font-size:14px;text-align:right; color: #333">${formatCurrency(order.total_amount)}</td>
                         </tr>
                         <tr>
                             <td style="padding:4px 0;font-size:14px; color: #555">Khuyến mãi</td>
-                            <td style="padding:4px 0;font-size:14px;text-align:right; color: #555">0đ</td>
+                            <td style="padding:4px 0;font-size:14px;text-align:right; color: #333">0đ</td>
                         </tr>
                         <tr>
                             <td style="padding:4px 0;font-size:14px; color: #555">Chi phí vận chuyển</td>
-                            <td style="padding:4px 0;font-size:14px;text-align:right; color: #555">0đ</td>
+                            <td style="padding:4px 0;font-size:14px;text-align:right; color: #333">0đ</td>
                         </tr>
                         <tr>
                             <td style="padding-top:10px;border-top:1px solid #ddd;font-weight:bold; color: #555">Tổng cộng</td>
-                            <td style="padding-top:10px;border-top:1px solid #ddd;font-weight:bold;text-align:right; color: #555">${order.total_amount}</td>
+                            <td style="padding-top:10px;border-top:1px solid #ddd;font-size:16px; font-weight:bold;text-align:right; color: #333">${formatCurrency(order.total_amount)}</td>
                         </tr>
                         </table>
 
                         <div style="font-size:14px;">
                             <div style="margin-top:10px;">
-                                <strong style="color: #555;">Thông tin khách hàng</strong><br />
+                                <h3 style="color: #333;padding-bottom:10px;">Thông tin khách hàng</h3>
                                 <p>Tên khách hàng: ${order.customer.firstname + ' ' + order.customer.lastname}</p>
                                 <p>Ngày đặt hàng: ${new Date(order.order_date).toLocaleDateString("vi-VN")}</p>
                                 <p>Địa chỉ: ${order.address.address_line || ""} - ${order.address.ward || ""} - ${order.address.district || ""} - ${order.address.city || ""}
                             </div></p>
                             <div style="margin-top:10px;">
-                                <strong>Phương thức vận chuyển</strong><br />
-                                <p>Miễn phí giao hàng & lắp đặt tại Hà Nội đối với các sản phẩm nội thất. Các sản phẩm thuộc danh mục Đồ Trang Trí, phí giao hàng sẽ được INDECO liên hệ báo sau.</p>
+                                <h3 style="color: #333;padding-bottom:10px;">Phương thức vận chuyển</h3>
+                                <p style="color: #555">Miễn phí giao hàng & lắp đặt tại Hà Nội đối với các sản phẩm nội thất. Các sản phẩm thuộc danh mục Đồ Trang Trí, phí giao hàng sẽ được INDECO liên hệ báo sau.</p>
                             </div>
                         </div>
 
                         <div style="font-size:13px;color:#555;margin-top:10px;border-top:1px solid #eee;padding-top:10px;">
-                        <p>
+                        <p style="color: #555, font-size: 14px;">
                             Nếu quý khách có bất cứ câu hỏi nào, xin vui lòng liên hệ INDECO qua hotline 
                             <strong>032 849 4998</strong> hoặc email 
                             <a href="mailto:indecovietnam.fur@gmail.com" style="color:#3b5998;text-decoration:none;">indecovietnam.fur@gmail.com</a>.
                         </p>
 
-                        <div style="display:flex;margin-top:10px;">
+                        <div style="display:flex;margin-top:10px; color: #555;">
                             <div style="width:49%;">
                             <strong>INDECO VIETNAM</strong><br />
                             Xem thêm để hiểu biết thêm về chúng tôi
