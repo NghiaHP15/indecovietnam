@@ -60,7 +60,6 @@ export const socialLogin = async (dto: SocialLoginCustomerDto) => {
             provider_id: dto.provider_id
         });
         await customerRepo.save(customer);
-        emailQueue.add({ to: customer.email, payload: customer, type: EmailJobType.WELCOME });
     }
     const tokens = generateTokens(customer);
     const refreshToken = refreshTokenRepo.create({
@@ -72,6 +71,7 @@ export const socialLogin = async (dto: SocialLoginCustomerDto) => {
     })
     await refreshTokenRepo.save(refreshToken);
     const user = generateUser(customer);
+    emailQueue.add({ to: dto.email, payload: user, type: EmailJobType.WELCOME });
     return { ...tokens, user};
 }
 
