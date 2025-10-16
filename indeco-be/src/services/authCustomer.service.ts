@@ -19,7 +19,6 @@ export const register = async (dto: RegisterCustomerDto) => {
         provider: Provider.LOCAL,
     });
     await customerRepo.save(customer);
-    emailQueue.add({ to: customer.email, payload: customer, type: EmailJobType.WELCOME });
     const tokens = generateTokens(customer);
     const refreshToken = refreshTokenRepo.create({
         ip: dto.ip,
@@ -30,6 +29,7 @@ export const register = async (dto: RegisterCustomerDto) => {
     })
     await refreshTokenRepo.save(refreshToken);
     const user = generateUser(customer);
+    emailQueue.add({ to: dto.email, payload: user, type: EmailJobType.WELCOME });
     return { ...tokens, user};
 }
 
