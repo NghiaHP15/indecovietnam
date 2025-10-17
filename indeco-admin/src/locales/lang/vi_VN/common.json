@@ -370,6 +370,7 @@
         "policy": "Chính sách",
         "min_price": "Giá min",
         "max_price": "Giá max",
+        "views": "Lượt xem",
         "variants": "Biến thể"
       },
       "variants-empty": "Chưa tạo biến thể",

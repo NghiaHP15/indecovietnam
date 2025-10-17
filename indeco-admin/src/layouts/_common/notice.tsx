@@ -133,7 +133,7 @@ function NoticeTab(props) {
       await markAsRead(item.id);
       props?.loadNotification();
     }}>
-      <div className={`mt-1 p-2 flex items-center rounded-md ${item.isRead === false ? 'bg-[#edf0f5]' : ''}`}>
+      <div className={`mt-1 p-2 flex items-center rounded-md ${item.isRead === false ? 'bg-[#99999923]' : ''}`}>
         <Avatar
           size={45}
           src={(item.type ===  NOTI_TYPE.CONTACT ? item.contact.avatar : item.order.customer.avatar) || no_avatar}

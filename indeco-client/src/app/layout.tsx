@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import AOSInit from "@/components/AOSInit";
 import Providers from "@/components/Providers";
 import ScrollToTopButton from "@/components/SrollTopButton";
+import ActionButton from "@/components/ActionButton";
 
 export const metadata = {
   title: "Indeco VietNam",
@@ -29,6 +30,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                   {children}
                 </main>
               <Footer/>
+              <ActionButton />
               <ScrollToTopButton />
             </div>
           </Providers>

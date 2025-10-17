@@ -6,6 +6,7 @@ import {
   Form,
   Image,
   Input,
+  InputNumber,
   Modal,
   notification,
   Row,
@@ -441,7 +442,7 @@ export const ProductDetailForm = forwardRef(
       );
     };
 
-    const onChange = (value: string | boolean | null, field: PropKey) => {
+    const onChange = (value: string | number | boolean | null, field: PropKey) => {
       const _param: IProduct = _.cloneDeep(param);
       (_param as any)[field] = value;
       setParam(_param);
@@ -507,7 +508,7 @@ export const ProductDetailForm = forwardRef(
               />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={mode === MODE.UPDATE ? 6 : 12}>
             <Form.Item
               label={t('website.product.field.status')}
               required
@@ -526,6 +527,21 @@ export const ProductDetailForm = forwardRef(
               />
             </Form.Item>
           </Col>
+          {mode === MODE.UPDATE && (
+            <Col span={6}>
+            <Form.Item
+              label={t('website.product.field.views')}
+            >
+              <InputNumber
+                value={param?.views}
+                min={0}
+                style={{ width: '100%' }}
+                placeholder={t('website.product-variant.field.quantity_selled')}
+                onChange={(e) => onChange(e, "views")}
+              />
+            </Form.Item>
+          </Col>
+          )}
           <Col span={24}>
             <Form.Item
               label={

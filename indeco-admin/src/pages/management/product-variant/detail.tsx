@@ -5,6 +5,7 @@ import {
   Col,
   Form,
   Image,
+  Input,
   InputNumber,
   Modal,
   notification,
@@ -353,6 +354,35 @@ export const ProductVariantDetailForm = forwardRef(
     return (
       <Form layout="vertical">
         <Row gutter={24}>
+          {mode === MODE.UPDATE && (
+          <>
+          <Col span={12}>
+            <Form.Item
+              label={t('SKU')}
+            >
+              <Input
+                value={param?.sku}
+                min={0}
+                placeholder={t('SKU')}
+                onChange={(e) => onChange(e.target.value, "sku")}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label={t('website.product-variant.field.quantity_selled')}
+            >
+              <InputNumber
+                value={param?.quantity_selled}
+                min={0}
+                style={{ width: '100%' }}
+                placeholder={t('website.product-variant.field.quantity_selled')}
+                onChange={(e) => onChange(e, "quantity_selled")}
+              />
+            </Form.Item>
+          </Col>
+          </>
+          )}
           <Col span={12}>
             <Form.Item
               label={t('website.product-variant.field.size')}

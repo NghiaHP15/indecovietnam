@@ -125,6 +125,13 @@ const Product = () => {
         render: (_, record) => <span>{record.productCategory?.title}</span>
       },
       {
+        key: 'views',
+        dataIndex: 'views',
+        title: t("website.product.field.views"),
+        width: 100,
+        render: (_, record) => <span>{record.views}</span>
+      },
+      {
         key: 'min_price',
         dataIndex: 'min_price',
         title: t("website.product.field.min_price"),

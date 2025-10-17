@@ -22,6 +22,9 @@ import seo_home from "./data/seo/seo-home.png";
 import seo_policy from "./data/seo/seo-policy.jpg"
 import qr_bank from "./QRBank.png";
 import logo_mbbank from "./lg-mbbank.png";
+import ic_mess from "./messenger.png";
+import ic_phone from "./phone-call.png";
+import ic_sms from "./chatting.png";
 
 
 export { 
@@ -48,5 +51,8 @@ export {
     seo_home,
     seo_policy,
     qr_bank,
-    logo_mbbank
+    logo_mbbank,
+    ic_mess,
+    ic_phone,
+    ic_sms
 };

@@ -228,6 +228,7 @@ export interface IProduct {
   policy: string,
   min_price?: number,
   max_price?: number,
+  views?: number,
   variants?: IProductVariant[];
 }
 
