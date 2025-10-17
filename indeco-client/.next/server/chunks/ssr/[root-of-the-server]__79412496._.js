@@ -181,7 +181,7 @@ const parseJwt = (token)=>{
 // ======== Hàm refresh token ========
 const refreshAccessToken = async ()=>{
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://indecovietnam-backend.onrender.com/api/")}customer/refresh-token`, {}, {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/")}customer/refresh-token`, {}, {
             withCredentials: true
         });
         const newToken = response.data.data?.accessToken;
@@ -196,7 +196,7 @@ const refreshAccessToken = async ()=>{
 };
 // ======== Axios instance ========
 const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: ("TURBOPACK compile-time value", "https://indecovietnam-backend.onrender.com/api/") || "http://localhost:5000/api",
+    baseURL: ("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/") || "http://localhost:5000/api",
     timeout: 50000,
     headers: {
         "Content-Type": "application/json"
@@ -207,9 +207,9 @@ const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules
 axiosClient.interceptors.request.use(async (config)=>{
     const requiresAuth = config.requiresAuth;
     if (!requiresAuth) return config;
-    const token = ("TURBOPACK compile-time falsy", 0) ? ("TURBOPACK unreachable", undefined) : null;
     if ("TURBOPACK compile-time truthy", 1) return config;
     "TURBOPACK unreachable";
+    const token = undefined;
     // Check token expiration
     const payload = undefined;
     const now = undefined;

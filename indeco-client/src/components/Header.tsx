@@ -55,7 +55,7 @@ const Header:React.FC = () => {
                     {user ?
                     <UserButton/>
                     :
-                    <Link href="/login" className="text-darkColor p-2 rounded-sm hover:text-light_brownish">Đăng Nhập</Link>
+                    <Link href="/login" className="text-shadow-xs text-shadow-neutral-200 text-base text-darkColor p-2 rounded-sm hover:text-light_brownish">Đăng Nhập</Link>
                     }
                 </div>
             </Container>

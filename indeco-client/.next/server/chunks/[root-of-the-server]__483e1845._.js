@@ -205,7 +205,7 @@ const parseJwt = (token)=>{
 // ======== Hàm refresh token ========
 const refreshAccessToken = async ()=>{
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "http://localhost:5000/api/")}customer/refresh-token`, {}, {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/")}customer/refresh-token`, {}, {
             withCredentials: true
         });
         const newToken = response.data.data?.accessToken;
@@ -220,7 +220,7 @@ const refreshAccessToken = async ()=>{
 };
 // ======== Axios instance ========
 const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: ("TURBOPACK compile-time value", "http://localhost:5000/api/") || "http://localhost:5000/api",
+    baseURL: ("TURBOPACK compile-time value", "https://api.indecovietnam.com/api/") || "http://localhost:5000/api",
     timeout: 50000,
     headers: {
         "Content-Type": "application/json"
@@ -410,8 +410,6 @@ const handler = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules
             const nameParts = user.name?.split(" ") || [];
             const firstname = nameParts[0] || "";
             const lastname = nameParts[1] || "";
-            console.log(user);
-            console.log(account);
             const res = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$authService$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["loginSocail"])({
                 firstname,
                 lastname,
@@ -420,7 +418,6 @@ const handler = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules
                 provider: account?.provider,
                 provider_id: account?.providerAccountId
             });
-            console.log(res);
             if (res?.data?.success) {
                 // ✅ ép kiểu user và account để thêm custom fields
                 user.customUser = res.data.data.user;

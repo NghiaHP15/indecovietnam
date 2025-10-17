@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import SideInfo from "@/components/SideInfo";
 import NoAccess from "@/components/NoAccess";
 import dayjs from "dayjs";
-import BadgeOrderStatus from "@/components/BadgeOrderStatus";
 import BadgePaymentStatus from "@/components/BadgePaymentStatus";
 import PriceFormatter from "@/components/PriceFormatter";
 import {EyeIcon, ListOrdered } from "lucide-react";
@@ -177,7 +176,7 @@ const Profile = () => {
                                     <h3 className="text-lg font-medium text-darkColor">Thông tin tài khoản</h3>
                                     <form className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
                                         <div className="flex gap-2">
-                                            <Label htmlFor="email" className="w-25">Email :</Label>
+                                            <Label htmlFor="email" className="w-25 text-base font-normal">Email :</Label>
                                             <Input 
                                                 id="email" 
                                                 name="email" 
@@ -190,7 +189,7 @@ const Profile = () => {
                                             />
                                         </div>
                                         <div className="flex gap-2">
-                                            <Label htmlFor="phone" className="w-25">Số điện thoại :</Label>
+                                            <Label htmlFor="phone" className="w-25 text-base font-normal">Số điện thoại :</Label>
                                             <Input 
                                                 id="phone" 
                                                 name="phone" 
@@ -202,7 +201,7 @@ const Profile = () => {
                                             />
                                         </div>
                                         <div className="flex gap-2">
-                                            <Label htmlFor="firstName" className="w-25">Họ :</Label>
+                                            <Label htmlFor="firstName" className="w-25 text-base font-normal">Họ :</Label>
                                             <Input 
                                                 id="firstName" 
                                                 name="firtName" 
@@ -215,7 +214,7 @@ const Profile = () => {
                                             />
                                         </div>
                                         <div className="flex gap-2">
-                                            <Label htmlFor="lastName" className="w-25">Tên :</Label>
+                                            <Label htmlFor="lastName" className="w-25 text-base font-normal">Tên :</Label>
                                             <Input 
                                                 id="lastName" 
                                                 name="lastName" 
@@ -228,19 +227,19 @@ const Profile = () => {
                                             />
                                         </div>
                                         <div className="flex gap-2">
-                                            <Label htmlFor="dateOfBirth" className="w-25">Ngày sinh :</Label>
+                                            <Label htmlFor="dateOfBirth" className="w-25 text-base font-normal">Ngày sinh :</Label>
                                             <DatePicker className="w-full md:w-80" value={data.date_of_birth} onChange={(date) => handleChange(new Date(date).toISOString(), "date_of_birth")} />
                                         </div>
                                         <div className="flex gap-2">
-                                            <Label htmlFor="lastName" className="w-25">Giới tính :</Label>
+                                            <Label htmlFor="lastName" className="w-25 text-base font-normal">Giới tính :</Label>
                                             <RadioGroup name="gender" value={data.gender} className="flex gap-2" onValueChange={(value) => handleChange(value, "gender")}>
                                                 <div className="flex items-center gap-3">
                                                     <RadioGroupItem value="male" defaultChecked id="male" />
-                                                    <Label htmlFor="male" className="cursor-pointer font-normal">Nam</Label>
+                                                    <Label htmlFor="male" className="cursor-pointer text-base font-normal">Nam</Label>
                                                 </div>
                                                 <div className="flex items-center gap-3">
                                                     <RadioGroupItem value="famale" id="female" />
-                                                    <Label htmlFor="female" className="cursor-pointer font-normal">Nữ</Label>
+                                                    <Label htmlFor="female" className="cursor-pointer text-base font-normal">Nữ</Label>
                                                 </div>
                                             </RadioGroup>
                                         </div>
@@ -249,26 +248,22 @@ const Profile = () => {
                                     <div className="flex flex-col gap-4 mt-8">
                                         <div className="flex items-center gap-3">
                                             <ListOrdered className="text-light_brownish"/>
-                                            <h2>Danh sách đơn hàng của bạn</h2>
+                                            <h2 className="text-lg font-normal">Danh sách đơn hàng của bạn</h2>
                                         </div>
                                          {orders?.length <= 0 ? (
                                             <div className="mt-4 p-4 bg-gray-100">
-                                                <span className="text-lightColor">Bạn chưa có đơn hàng nào</span>
+                                                <span className="text-lg text-lightColor">Bạn chưa có đơn hàng nào</span>
                                             </div>
                                          ) : (
                                             <>
                                             {currentOrder.map((item) => (
                                             <div key={item?.txnRef} className="border border-gray-200 p-4 rounded-md mb-4">
                                                 <div className="flex items-center justify-between flex-wrap gap-2 border-b-1 border-gray-200 pb-2">
-                                                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                                                    <div className="flex items-center gap-2 text-base text-gray-500">
                                                         <span>Mã đơn hàng: </span>
-                                                        <span>{item?.txnRef}</span>
+                                                        <span className="text-sm">{item?.txnRef}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-2 text-sm text-gray-500">
-                                                        <div className="flex items-center gap-2">
-                                                            <span>Đơn hàng: </span> 
-                                                            {item?.status && <BadgeOrderStatus status={item?.status} />}
-                                                        </div>
+                                                    <div className="flex items-center gap-2 text-base text-gray-500">
                                                         <div className="flex items-center gap-2">
                                                             <span>Thanh toán: </span> 
                                                             {item?.payment_status && <BadgePaymentStatus status={item?.payment_status} />}
@@ -287,17 +282,17 @@ const Profile = () => {
                                                                 </div>
                                                             </div>
                                                             <div>
-                                                                <PriceFormatter amount={item?.product_variant?.price} />
+                                                                <PriceFormatter amount={item?.product_variant?.price} className="text-base text-red-400" />
                                                             </div>
                                                         </div>
                                                     ))}
                                                 </div>
                                                 <div className="flex items-center justify-between flex-wrap gap-2 border-t-1 border-gray-200 pt-2">
-                                                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                                                    <div className="flex items-center gap-2 text-base text-gray-500">
                                                         <span>Ngày đặt hàng: </span>
                                                         <span>{dayjs(item?.order_date).tz("Asia/Ho_Chi_Minh").format("hh:mm DD/MM/YYYY")}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                                                    <div className="flex items-center gap-2 text-base text-gray-500">
                                                         <div>
                                                             <Link href={`/order?txnRef=${item?.txnRef}`} className="px-3 h-8 rounded-md flex items-center justify-end border-1 border-blue-400 text-blue-400 hover:bg-blue-400/10 hoverEffect">
                                                                 <EyeIcon className="h-4 text-blue-400" />

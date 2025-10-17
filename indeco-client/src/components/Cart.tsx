@@ -6,9 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 import PriceFormatter from "./PriceFormatter";
 import QuantityButtons from "./QuantityButton";
+import { Button } from "./ui/button";
 
 const Cart = () => {
-  const { items, getItemCount, getTotalPrice, getSubTotalPrice } = useStore();
+  const { items, getItemCount, getTotalPrice, getSubTotalPrice, resetCart } = useStore();
   const groupedItems = useStore((state) => state.getGroupedItems());
 
   return (
@@ -16,7 +17,7 @@ const Cart = () => {
     <Drawer direction="right">
         <DrawerTrigger>
             <span className="group relative">
-                <ShoppingBag className="w-5 h-5 hover:text-lightColor hoverEffect" />
+                <ShoppingBag className="w-5 h-5 hover:text-text-light_brownish hoverEffect" />
                 <span 
                     className="absolute -top-1 -right-1 bg-dark_brownish text-white h-3.5 w-3.5 rounded-full text-xs font-semibold flex items-center justify-center"
                 >{items?.length ? items?.length : 0}</span>
@@ -24,14 +25,19 @@ const Cart = () => {
         </DrawerTrigger>
         <DrawerContent className="p-2 md:p-5">
             <DrawerHeader className="border-b border-gray-200">
-            <DrawerTitle className="text-xl font-medium flex items-center gap-3 text-darkColor">
-                <span>Giỏ hàng</span> 
-                <span 
-                    className="bg-dark_brownish text-white h-6 w-6 rounded-full text-sm font-semibold flex items-center justify-center"
-                >
-                    {items?.reduce((total, item) => total + item.quantity, 0) || 0}
-                </span>
-            </DrawerTitle>
+              <DrawerTitle className="w-full">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-normal">Giỏ hàng</span> 
+                      <span 
+                          className="bg-dark_brownish text-white h-6 w-6 rounded-full text-sm font-semibold flex items-center justify-center"
+                      >
+                          {items?.reduce((total, item) => total + item.quantity, 0) || 0}
+                      </span>
+                    </div>
+                    {items?.length !== 0 && <Button variant={"link"} className="underline" onClick={resetCart}>Xóa sản phẩm</Button>}
+                  </div>
+              </DrawerTitle>
             </DrawerHeader>
             <div className="overflow-y-auto">
                 {groupedItems?.map((item ) => {
@@ -81,21 +87,21 @@ const Cart = () => {
               {groupedItems.length > 0 && (
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-medium">Tổng tiền:</span>
+                    <span className="text-base">Tổng tiền:</span>
                     <PriceFormatter
                       amount={getSubTotalPrice()}
                       className={"text-darkColor text-lg font-medium"}
                     />
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-medium">Giảm còn:</span>
+                    <span className="text-base">Giảm còn:</span>
                     <PriceFormatter
                       amount={getTotalPrice()}
-                      className={"text-darkColor text-lg font-medium"}
+                      className={"text-red-400 text-lg font-medium"}
                     />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-base font-medium">Đã giảm:</span>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-base">Đã giảm:</span>
                     <PriceFormatter
                       amount={getSubTotalPrice() - getTotalPrice()}
                       className={"text-darkColor text-lg font-medium"}

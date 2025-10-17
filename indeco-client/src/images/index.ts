@@ -20,6 +20,8 @@ import seo_service from "./data/seo/seo-service.jpg";
 import seo_product from "./data/seo/seo-product.jpg";
 import seo_home from "./data/seo/seo-home.png";
 import seo_policy from "./data/seo/seo-policy.jpg"
+import qr_bank from "./QRBank.png";
+import logo_mbbank from "./lg-mbbank.png";
 
 
 export { 
@@ -44,5 +46,7 @@ export {
     seo_service,
     seo_product,
     seo_home,
-    seo_policy
+    seo_policy,
+    qr_bank,
+    logo_mbbank
 };

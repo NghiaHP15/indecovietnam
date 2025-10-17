@@ -13,7 +13,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import useStore from "../../../store";
 import PriceFormatter from "@/components/PriceFormatter";
 import { PaymentMethod } from "@/constants/enum";
-import { emptyImage, momo, vnpay, zalopay } from "@/images";
+import { emptyImage, momo, qr_bank, vnpay, zalopay } from "@/images";
 import { createdOrder } from "@/services/orderService";
 import provinceApi from "@/lib/provinceAPI";
 import { Button } from "@/components/ui/button";
@@ -273,7 +273,7 @@ const Checkout = () => {
                   <div className="flex flex-col border border-gray-200 rounded-md p-4 gap-4">
                     {[PaymentMethod.MOMO, PaymentMethod.VNPAY, PaymentMethod.BANK].map((method) => (
                       <div key={method} className="flex items-center gap-3 border-b border-gray-200 pb-4 last:border-none">
-                        <Checkbox id={method} checked={method === data.paymentmethod} onCheckedChange={() => handleChange(method, "paymentmethod")} />
+                        <Checkbox id={method} disabled={method === PaymentMethod.MOMO || method === PaymentMethod.VNPAY} checked={method === data.paymentmethod} onCheckedChange={() => handleChange(method, "paymentmethod")} />
                         <Label htmlFor={method} className="text-darkGray text-base font-normal cursor-pointer flex items-center gap-2">
                           <Image src={method === PaymentMethod.MOMO ? momo.src : method === PaymentMethod.VNPAY ? vnpay.src : zalopay.src} width={40} height={40} alt={method} className="border border-gray-200 rounded-md" />
                           {method === PaymentMethod.BANK ? "Chuyển khoản ngân hàng" : method}
@@ -281,10 +281,15 @@ const Checkout = () => {
                       </div>
                     ))}
                     {data.paymentmethod === PaymentMethod.BANK && (
-                      <div className="text-center text-darkGray pt-2">
-                        <p>Số tài khoản: 123456789</p>
-                        <p>Ngân hàng: Teckcombank</p>
-                        <p>Nội dung: Họ tên + Số điện thoại</p>
+                      <div className="flex items-center gap-6">
+                        <div>
+                          <Image src={qr_bank.src} alt="QR Bank" width={150} height={150} />
+                        </div>
+                        <div className="text-center text-darkGray pt-2">
+                          <p>Số tài khoản: 0348207420</p>
+                          <p>Ngân hàng: MBBank</p>
+                          <p>Nội dung: Họ tên + Email + Số điện thoại</p>
+                        </div>
                       </div>
                     )}
                   </div>

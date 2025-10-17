@@ -21,9 +21,6 @@ const handler = NextAuth({
       const nameParts = user.name?.split(" ") || [];
       const firstname = nameParts[0] || "";
       const lastname = nameParts[1] || "";
-
-      console.log(user);
-      console.log(account);
       
       const res = await loginSocail({
         firstname,
@@ -33,7 +30,7 @@ const handler = NextAuth({
         provider: account?.provider,
         provider_id: account?.providerAccountId,
       });
-      console.log(res);
+      
       if (res?.data?.success) {
         // ✅ ép kiểu user và account để thêm custom fields
         (user as any).customUser = res.data.data.user;

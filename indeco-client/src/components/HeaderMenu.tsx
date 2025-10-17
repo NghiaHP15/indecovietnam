@@ -62,7 +62,7 @@ const HeaderMenu = () => {
             return (
               <NavigationMenuItem key={index}>
                 <NavigationMenuTrigger
-                  className="capitalize font-semibold text-lightColor bg-transparent hover:bg-transparent hover:text-light_brownish hoverEffect relative group"
+                  className="capitalize text-shadow-xs text-shadow-neutral-200 text-lg font-medium text-lightColor bg-transparent hover:bg-transparent hover:text-light_brownish hoverEffect relative group"
                   onMouseEnter={() => handleTriggerEnter(item.title, item.items?.[0])}
                 >
                   <Link href={item.href}>{item.title}</Link>
@@ -127,7 +127,7 @@ const HeaderMenu = () => {
               <NavigationMenuLink asChild>
                 <Link
                   href={item.href}
-                  className="capitalize font-semibold text-lightColor hover:text-light_brownish hoverEffect relative group"
+                  className="capitalize text-shadow-xs text-shadow-neutral-200 text-lg font-medium text-lightColor hover:text-light_brownish hoverEffect relative group"
                 >
                   {item.title}
                 </Link>

@@ -1134,12 +1134,12 @@ const metadata = {
         "thiết kế nội thất hiện đại"
     ],
     alternates: {
-        canonical: `${("TURBOPACK compile-time value", "https://indecovietnam.com")}`
+        canonical: `${("TURBOPACK compile-time value", "http://localhost:3000")}`
     },
     openGraph: {
         title: "Indeco Việt Nam | Nội thất cao cấp",
         description: "Khám phá bộ sưu tập nội thất cao cấp của Indeco – Sofa, bàn ghế, giường tủ và giải pháp không gian sống hiện đại.",
-        url: `${("TURBOPACK compile-time value", "https://indecovietnam.com")}`,
+        url: `${("TURBOPACK compile-time value", "http://localhost:3000")}`,
         siteName: "Indeco Việt Nam",
         images: [
             {
@@ -1162,19 +1162,19 @@ const Home = ()=>{
         "@graph": [
             {
                 "@type": "WebSite",
-                "url": `${("TURBOPACK compile-time value", "https://indecovietnam.com")}`,
+                "url": `${("TURBOPACK compile-time value", "http://localhost:3000")}`,
                 "name": "Indeco Việt Nam",
                 "potentialAction": {
                     "@type": "SearchAction",
-                    "target": `${("TURBOPACK compile-time value", "https://indecovietnam.com")}/search?q={search_term_string}`,
+                    "target": `${("TURBOPACK compile-time value", "http://localhost:3000")}/search?q={search_term_string}`,
                     "query-input": "required name=search_term_string"
                 }
             },
             {
                 "@type": "Organization",
                 "name": "Indeco Việt Nam",
-                "url": `${("TURBOPACK compile-time value", "https://indecovietnam.com")}`,
-                "logo": `${("TURBOPACK compile-time value", "https://indecovietnam.com")}/logo.png`,
+                "url": `${("TURBOPACK compile-time value", "http://localhost:3000")}`,
+                "logo": `${("TURBOPACK compile-time value", "http://localhost:3000")}/logo.png`,
                 "sameAs": [
                     "https://www.facebook.com/profile.php?id=61576607768367&locale=vi_VN",
                     "https://www.instagram.com/indeco.vietnam/",
@@ -1193,7 +1193,7 @@ const Home = ()=>{
             },
             {
                 "@type": "WebPage",
-                "url": `${("TURBOPACK compile-time value", "https://indecovietnam.com")}`,
+                "url": `${("TURBOPACK compile-time value", "http://localhost:3000")}`,
                 "name": "Indeco Việt Nam | Nội thất cao cấp",
                 "description": "Indeco Việt Nam – thương hiệu nội thất cao cấp, mang đến giải pháp không gian sống tinh tế, hiện đại."
             },
@@ -1204,7 +1204,7 @@ const Home = ()=>{
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang chủ",
-                        "item": `${("TURBOPACK compile-time value", "https://indecovietnam.com")}`
+                        "item": `${("TURBOPACK compile-time value", "http://localhost:3000")}`
                     }
                 ]
             }

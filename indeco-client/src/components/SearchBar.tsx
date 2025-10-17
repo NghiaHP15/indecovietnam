@@ -34,7 +34,7 @@ const SearchBar = () => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Search className="w-5 h-5 cursor-pointer hover:text-lightColor hoverEffect" />
+        <Search className="w-5 h-5 cursor-pointer text-shadow-sm text-shadow-neutral-200 hover:text-light_brownish hoverEffect" />
       </PopoverTrigger>
       <PopoverContent className="w-[350px] p-0 bg-white/60" align="end" sideOffset={25}>
         <Command className="bg-white/60">

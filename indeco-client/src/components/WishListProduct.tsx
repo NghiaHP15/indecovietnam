@@ -24,7 +24,7 @@ const WishListProducts = () => {
 
   const handleResetWishlist = () => {
     resetFavorite();
-    toast.success("Wishlist reset successfully");
+    toast.success("Đã đặt lại danh sách yêu thích!");
   };
 
   return (

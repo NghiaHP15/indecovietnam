@@ -32,7 +32,7 @@ const BadgeOrderStatus = ({ status }: { status: string }) => {
     }
     
     return (
-        <div className={`text-sm ${className}`}>{text}</div>
+        <div className={`text-base ${className}`}>{text}</div>
     );
 };
 

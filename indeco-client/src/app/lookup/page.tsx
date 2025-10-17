@@ -1,6 +1,5 @@
 "use client";
 
-import BadgeOrderStatus from "@/components/BadgeOrderStatus";
 import BadgePaymentStatus from "@/components/BadgePaymentStatus";
 import Breakcrum from "@/components/Breakcrum";
 import Container from "@/components/Container";
@@ -83,6 +82,7 @@ const Lookup = () => {
                           <div key={index} className="flex items-center gap-2">
                             <Checkbox 
                               id={item.name}
+                              className="bg-white"
                               checked={param.type === item.name}
                               onCheckedChange={(checked) => {
                                 setParam({
@@ -91,19 +91,24 @@ const Lookup = () => {
                                 })
                               }}
                             />
-                            <Label htmlFor={item.name} className="text-darkGray text-sm font-normal cursor-pointer flex items-center gap-2">{item.label}</Label>
+                            <Label htmlFor={item.name} className="text-darkGray text-base font-normal cursor-pointer flex items-center gap-2">{item.label}</Label>
                           </div>
                         ))}
                       </div>
                       <Input 
                         placeholder="Nhập số điện thoại hoặc email người nhận"
-                        className="bg-white"
+                        className="bg-white text-base"
                         value={param.value}
                         onChange={(e) => {
                           setParam({
                             ...param,
                             value: e.target.value
                           })
+                        }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            hanbleSubmit();
+                          }
                         }}
                       />
                       <div className="flex items-center justify-end">
@@ -121,31 +126,26 @@ const Lookup = () => {
                         {data.length > 0 ? (
                           <div className="flex flex-col gap-4">
                           {currentData.map((item, index: number) => (
-                            <div key={index} className="p-6 shadow-md rounded-md space-y-4">
+                            <div key={index} className="p-6 border border-gray-100 shadow-md rounded-md space-y-4">
                               <div className="grid grid-cols-3 gap-4">
                                 <div className="col-span-3">
                                   <span className="text-lg">Mã đơn hàng: {item.txnRef}</span>
                                 </div>
-                                <div className="col-span-2 flex flex-col text-sm">
+                                <div className="col-span-2 flex flex-col text-base">
                                   <span>Khách hàng: {item?.address?.receiver_name}</span>
                                   <span>Số điện thoại: {item?.address?.phone}</span>
                                   <span>Email: {item?.customer?.email}</span>
                                   <span>Ngày mua: {dayjs(item?.order_date).format('DD/MM/YYYY')}</span>
-                                  <span>Địa chỉ giao hàng: {item?.address?.ward + " " + item?.address?.district + " " + item?.address?.city + " " + item?.address?.address_line}</span>
+                                  <span>Địa chỉ giao hàng: {item?.address?.address_line + " - " + item?.address?.ward + " - " + item?.address?.district + " - " + item?.address?.city}</span>
                                 </div>
-                                <div className="col-span-1 flex flex-col justify-between text-sm">
+                                <div className="col-span-1 flex flex-col justify-between text-base">
                                   <div className="flex flex-col">
-                                    <span>Tổng giá sản phẩm: <PriceFormatter amount={item?.total_amount}/></span>
-                                    <span>Phí vận chuyển: <PriceFormatter amount={0}/></span>
+                                    <span>Tổng giá sản phẩm: <PriceFormatter amount={item?.total_amount} className="text-base"/></span>
+                                    <span>Phí vận chuyển: <PriceFormatter amount={0} className="text-base"/></span>
                                     <span>Tổng tiền: <PriceFormatter amount={item?.total_amount} className="text-base text-red-600"/></span>
-                                  </div>
-                                  <div>
                                     <span>Số lượng sản phẩm: <span className="text-red-600">{item?.products.map((item) => item.quantity).reduce((a, b) => a + b, 0)}</span></span>
+                                  <span>Trạng thái thanh toán: </span>{item?.payment_status && <BadgePaymentStatus status={item?.payment_status}/>}
                                   </div>
-                                </div>
-                                <div className="col-span-3 flex flex-col text-sm">
-                                  <span className="flex gap-2">Trạng thái thanh toán: {item?.payment_status && <BadgePaymentStatus status={item?.payment_status}/>}</span>
-                                  <span className="flex gap-2">Trạng thái đơn hàng: {item?.status && <BadgeOrderStatus status={item?.status}/>}</span>
                                 </div>
                               </div>
                             </div>
