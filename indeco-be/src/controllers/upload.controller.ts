@@ -5,7 +5,7 @@ import fs from "fs";
 export const getImage = async (req: Request, res: Response) => {
     const sort = req.query.sort;
     try {
-        const { limit = 30 } = req.query;
+        const { limit = 1000 } = req.query;
         const result = await cloudinary.search
             .expression("folder:indecovietnam")
             .sort_by("created_at", sort === "asc" ? "asc" : "desc")
